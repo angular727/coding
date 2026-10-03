@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import Numbers from "@/components/Numbers";
 import ProcessPinned from "@/components/ProcessPinned";
-import Marquee from "@/components/Marquee";
+import Cta from "@/components/Cta";
 import { ScrubWords } from "@/components/Words";
 
 export const metadata: Metadata = { title: "About" };
@@ -17,24 +17,23 @@ export default function Page() {
   return (
     <>
       <PageHeader eyebrow="About" title="We build technology that" accent="helps businesses grow." text="A software company based in Rahim Yar Khan, Pakistan." image="/photos/team.jpg" />
-      <section className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1400px] px-6 py-24 md:px-10 md:py-32">
         <p data-words className="t-lead max-w-5xl">
           <ScrubWords text="CodingHub delivers industry solutions to organizations across healthcare, retail, food, education and more, from cloud web apps to AI, IoT and automation." />
         </p>
-        <div className="mt-20 grid border-t border-cream/15 md:grid-cols-3">
+        <div className="mt-16 grid gap-5 md:grid-cols-3">
           {values.map((v, i) => (
-            <div key={v.t} data-reveal data-delay={i * 0.08} className="border-b border-cream/15 py-10 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0">
-              <p className="font-display text-base text-lime">0{i + 1}</p>
+            <div key={v.t} data-reveal data-delay={i * 0.08} className="rounded-[28px] border border-line bg-white p-8 shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-lift">
+              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-blue to-blue2 font-display font-semibold text-white">{i + 1}</span>
               <h2 className="t-h2 mt-6">{v.t}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-cream/60">{v.d}</p>
+              <p className="mt-3 text-sm leading-relaxed text-mute">{v.d}</p>
             </div>
           ))}
         </div>
       </section>
-      <Marquee />
       <Numbers />
       <ProcessPinned />
+      <Cta />
     </>
   );
 }
-

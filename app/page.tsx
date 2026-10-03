@@ -1,11 +1,11 @@
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Statement from "@/components/Statement";
-import ServicesStack from "@/components/ServicesStack";
+import ServicesBento from "@/components/ServicesBento";
 import ProductsHorizontal from "@/components/ProductsHorizontal";
-import Industries from "@/components/Industries";
-import Numbers from "@/components/Numbers";
 import ProcessPinned from "@/components/ProcessPinned";
+import Numbers from "@/components/Numbers";
+import Cta from "@/components/Cta";
 
 export default function Page() {
   return (
@@ -13,11 +13,11 @@ export default function Page() {
       <Hero />
       <Marquee />
       <Statement />
-      <ServicesStack />
+      <ServicesBento />
       <ProductsHorizontal />
-      <Industries />
-      <Numbers />
       <ProcessPinned />
+      <Numbers />
+      <Cta />
     </>
   );
 }

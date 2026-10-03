@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
+import Cta from "@/components/Cta";
 import { getProduct, photo, products } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -18,41 +19,56 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const p = getProduct(slug);
   if (!p) notFound();
-  const i = products.findIndex((x) => x.slug === slug);
-  const next = products[(i + 1) % products.length];
+  const others = products.filter((x) => x.slug !== p.slug).slice(0, 3);
 
   return (
     <>
       <PageHeader eyebrow={p.t} title={p.t} text={p.d} crumbs={[["Products", "/products"]]} image={photo(p.slug)} />
 
-      <section className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div data-reveal className="md:col-span-4">
-            <p className="t-eyebrow mb-6 flex items-center gap-3 text-mute"><span className="h-2 w-2 rounded-full bg-lime" />{p.tag}</p>
-            <p className="max-w-xs text-base leading-relaxed text-cream/70">Deployed on a secure cloud platform, with ongoing support and updates from the CodingHub team.</p>
-            <Link href="/contact" data-magnetic data-cursor="Go" className="mt-8 inline-flex rounded-full bg-lime px-7 py-3.5 text-sm font-medium text-ink transition hover:bg-cream">Request a demo</Link>
+      <section className="mx-auto max-w-[1400px] px-6 py-20 md:px-10 md:py-28">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <p className="t-eyebrow mb-3 text-blue">{p.tag}</p>
+            <h2 data-reveal className="t-h1">Key <span className="acc">capabilities</span></h2>
+            <div className="mt-9 grid gap-4 sm:grid-cols-2">
+              {p.m.map((m, i) => (
+                <div key={m.t} data-reveal data-delay={(i % 2) * 0.08} className="rounded-[24px] border border-line bg-white p-7 shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-lift">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-sky font-display text-sm font-semibold text-blue">{i + 1}</span>
+                  <h3 className="t-h3 mt-5">{m.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mute">{m.d}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <ul className="border-t border-cream/15 md:col-span-8">
-            {p.m.map((m, k) => (
-              <li key={m.t} data-reveal className="group grid grid-cols-12 items-baseline gap-4 border-b border-cream/15 py-7 transition-all duration-500 hover:pl-4">
-                <span className="col-span-2 font-display text-base text-lime md:col-span-1">0{k + 1}</span>
-                <h2 className="t-h3 col-span-10 md:col-span-5">{m.t}</h2>
-                <p className="col-span-10 col-start-3 text-sm leading-relaxed text-cream/60 md:col-span-6 md:col-start-7">{m.d}</p>
-              </li>
-            ))}
-          </ul>
+          <aside className="lg:col-span-4">
+            <div className="sticky top-28 overflow-hidden rounded-[28px] bg-gradient-to-br from-blue to-navy p-8 text-white shadow-lift">
+              <h2 className="t-h2">Interested in {p.t}?</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/75">Deployed on a secure cloud platform, with ongoing support and updates from the CodingHub team.</p>
+              <Link href="/contact" data-magnetic className="mt-7 block rounded-full bg-white px-6 py-3.5 text-center text-sm font-semibold text-navy transition hover:scale-[1.02]">Request a demo</Link>
+              <a href="tel:+923054948160" className="mt-3 block rounded-full border border-white/30 px-6 py-3.5 text-center text-sm font-medium transition hover:bg-white/10">+92 305 4948160</a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <Link href={`/products/${next.slug}`} data-cursor="Next" className="group block border-y border-cream/15 px-6 py-14 md:px-10 md:py-20">
-        <div className="mx-auto flex max-w-[1600px] items-end justify-between gap-6">
-          <div>
-            <p className="t-eyebrow mb-4 text-mute">Next product</p>
-            <p className="t-h1 transition group-hover:text-lime">{next.t}</p>
+      <section className="bg-soft/70 py-20 md:py-28">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+          <h2 data-reveal className="t-h1 mb-10">More <span className="acc">products</span></h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {others.map((o) => (
+              <Link key={o.slug} href={`/products/${o.slug}`} data-reveal className="group block">
+                <div className="aspect-[4/3] overflow-hidden rounded-[24px] bg-white shadow-soft transition duration-500 group-hover:shadow-lift">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={photo(o.slug)} alt={o.t} loading="lazy" className="h-full w-full object-cover transition duration-[1100ms] group-hover:scale-105" />
+                </div>
+                <p className="t-eyebrow mt-4 text-blue">{o.tag}</p>
+                <h3 className="t-h3 mt-1">{o.t}</h3>
+              </Link>
+            ))}
           </div>
-          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-cream/30 text-2xl transition group-hover:border-lime group-hover:bg-lime group-hover:text-ink">→</span>
         </div>
-      </Link>
+      </section>
+      <Cta />
     </>
   );
 }

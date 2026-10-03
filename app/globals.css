@@ -1,61 +1,65 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #09090b;
-  --color-card: #131316;
-  --color-cream: #ece8e1;
-  --color-lime: #d7ff2f;
-  --color-mute: #8d8a84;
+  --color-paper: #fbfcff;
+  --color-soft: #f0f4ff;
+  --color-ink: #0a1020;
+  --color-navy: #0a1a4a;
+  --color-blue: #2457ff;
+  --color-blue2: #6b8cff;
+  --color-sky: #e6edff;
+  --color-mute: #5a6580;
+  --color-line: #e1e8f6;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-display: var(--font-geist), system-ui, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
 }
 
-html { background: var(--color-ink); }
+html { background: var(--color-paper); }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-cream);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-::selection { background: var(--color-lime); color: var(--color-ink); }
+::selection { background: var(--color-blue); color: #fff; }
 
 /* refined, modern type scale */
-.t-hero  { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.03; letter-spacing: -0.045em; }
-.t-h1    { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.2rem, 4.2vw, 4.1rem); line-height: 1.05; letter-spacing: -0.042em; }
-.t-h2    { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.9rem, 3.2vw, 3.2rem); line-height: 1.08; letter-spacing: -0.038em; }
-.t-h3    { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.4rem, 2vw, 2rem); line-height: 1.12; letter-spacing: -0.03em; }
-.t-lead  { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.45rem, 2.7vw, 2.7rem); line-height: 1.2; letter-spacing: -0.035em; }
-.t-num   { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.2rem, 6vw, 6rem); line-height: .95; letter-spacing: -0.05em; }
-.t-eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; }
-.acc { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--color-lime); font-size: 1.1em; letter-spacing: -0.01em; }
+.t-hero  { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.3rem, 4.8vw, 4.6rem); line-height: 1.04; letter-spacing: -0.045em; }
+.t-h1    { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.8vw, 3.6rem); line-height: 1.06; letter-spacing: -0.04em; }
+.t-h2    { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 2.7vw, 2.7rem); line-height: 1.1; letter-spacing: -0.035em; }
+.t-h3    { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.7vw, 1.6rem); line-height: 1.15; letter-spacing: -0.028em; }
+.t-lead  { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.4rem, 2.5vw, 2.5rem); line-height: 1.22; letter-spacing: -0.035em; }
+.t-num   { font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 5.4vw, 5.4rem); line-height: .95; letter-spacing: -0.05em; }
+.t-eyebrow { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
+.acc { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--color-blue); font-size: 1.1em; letter-spacing: -0.01em; }
+.acc-light { color: #9fb6ff; }
 
-/* hidden until the intro/transition animation plays (safety net reveals after 6s) */
-.hero-split, .hero-fade { visibility: hidden; animation: show-late 0s 6s forwards; }
+.glass { background: rgba(255,255,255,.62); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); border: 1px solid rgba(255,255,255,.8); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 20px 50px -20px rgba(36,87,255,.28); }
+.shadow-soft { box-shadow: 0 1px 2px rgba(10,26,74,.05), 0 18px 40px -18px rgba(10,26,74,.22); }
+.shadow-lift { box-shadow: 0 2px 4px rgba(10,26,74,.06), 0 32px 60px -24px rgba(36,87,255,.35); }
+
+.hero-split, .hero-fade { visibility: hidden; animation: show-late 0s 3s forwards; }
 @keyframes show-late { to { visibility: visible; } }
-.w-op { opacity: .16; display: inline-block; }
+.w-op { opacity: .2; display: inline-block; }
 
-.grain::after {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 70; opacity: .06; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
-
-.marquee { display: flex; width: max-content; animation: marquee 36s linear infinite; }
+.marquee { display: flex; width: max-content; animation: marquee 38s linear infinite; }
 .marquee-rev { animation-direction: reverse; }
 @keyframes marquee { to { transform: translateX(-50%); } }
-@keyframes blink { 50% { opacity: .2 } }
+@keyframes float-a { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+@keyframes float-b { 0%,100% { transform: translateY(0) } 50% { transform: translateY(10px) } }
+@keyframes draw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+@keyframes grow { from { transform: scaleY(0) } to { transform: scaleY(1) } }
+@keyframes sheen { to { background-position: 200% 0 } }
+@keyframes pulse-dot { 0% { transform: scale(.6); opacity: .9 } 100% { transform: scale(2.6); opacity: 0 } }
 
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
-
-@media (hover: hover) and (pointer: fine) {
-  html, a, button, [data-cursor] { cursor: none; }
-}
 
 .line-hover { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s cubic-bezier(.7,0,.2,1); }
 .line-hover:hover { background-size: 100% 1px; }

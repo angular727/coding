@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import Cta from "@/components/Cta";
 import { getProduct, photo } from "@/lib/data";
 
 export const metadata: Metadata = { title: "Projects" };
@@ -20,32 +21,31 @@ export default function Page() {
   return (
     <>
       <PageHeader eyebrow="Projects" title="Real systems," accent="running for real businesses." text="A selection of the solutions we have built and deployed." />
-      <section className="mx-auto max-w-[1600px] px-6 pb-24 md:px-10">
-        <ul className="border-t border-cream/15">
-          {projects.map((p, i) => {
-            const prod = getProduct(p.slug)!;
-            return (
-              <li key={p.slug} data-reveal className="group grid items-center gap-6 border-b border-cream/15 py-7 transition-all duration-500 hover:bg-cream/[0.03] md:grid-cols-12 md:gap-8 md:px-4">
-                <span className="font-display text-base text-lime md:col-span-1">0{i + 1}</span>
-                <Link href={`/products/${p.slug}`} data-cursor="View" className="overflow-hidden rounded-xl bg-card md:col-span-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={photo(p.slug)} alt={prod.t} loading="lazy" className="aspect-[16/10] w-full object-cover transition duration-700 group-hover:scale-105" />
-                </Link>
-                <div className="md:col-span-5">
-                  <h2 className="t-h3">{prod.t}</h2>
-                  <p className="t-eyebrow mt-1.5 text-lime">{p.i}</p>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/60">{p.d}</p>
-                  {p.stack.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{p.stack.map((s) => <span key={s} className="rounded-full border border-cream/20 px-3 py-1 text-xs text-cream/70">{s}</span>)}</div>}
-                </div>
-                <div className="flex flex-wrap items-center gap-3 md:col-span-3 md:justify-end">
-                  <span className="rounded-full bg-cream/10 px-4 py-1.5 text-xs">{p.s}</span>
-                  {p.href && <a href={p.href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-lime px-5 py-2.5 text-xs font-medium text-ink transition hover:bg-cream">Open live demo ↗</a>}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+      <section className="mx-auto max-w-[1400px] space-y-5 px-6 pb-24 pt-8 md:px-10">
+        {projects.map((p, i) => {
+          const prod = getProduct(p.slug)!;
+          return (
+            <article key={p.slug} data-reveal className="group grid overflow-hidden rounded-[28px] border border-line bg-white shadow-soft transition duration-500 hover:shadow-lift md:grid-cols-12">
+              <Link href={`/products/${p.slug}`} className="overflow-hidden md:col-span-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={photo(p.slug)} alt={prod.t} loading="lazy" className="h-full min-h-[220px] w-full object-cover transition duration-[1100ms] group-hover:scale-105" />
+              </Link>
+              <div className="flex flex-col justify-center p-7 md:col-span-5 md:p-9">
+                <p className="t-eyebrow text-blue">{String(i + 1).padStart(2, "0")} · {p.i}</p>
+                <h2 className="t-h2 mt-2">{prod.t}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-mute">{p.d}</p>
+                {p.stack.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{p.stack.map((s) => <span key={s} className="rounded-full bg-sky px-3 py-1 text-xs font-medium text-blue">{s}</span>)}</div>}
+              </div>
+              <div className="flex flex-wrap items-center gap-3 p-7 md:col-span-3 md:flex-col md:items-stretch md:justify-center md:border-l md:border-line">
+                <span className="rounded-full bg-soft px-4 py-1.5 text-center text-xs font-semibold text-ink/70">{p.s}</span>
+                {p.href && <a href={p.href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-gradient-to-r from-blue to-blue2 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-lift transition hover:brightness-110">Open live demo ↗</a>}
+                <Link href={`/products/${p.slug}`} className="rounded-full border border-line px-5 py-2.5 text-center text-sm font-medium transition hover:border-blue hover:text-blue">View details</Link>
+              </div>
+            </article>
+          );
+        })}
       </section>
+      <Cta />
     </>
   );
 }

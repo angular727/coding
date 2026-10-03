@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
-import ServicesStack from "@/components/ServicesStack";
+import ServicesBento from "@/components/ServicesBento";
 import ProcessPinned from "@/components/ProcessPinned";
-import Marquee from "@/components/Marquee";
+import Cta from "@/components/Cta";
 
 export const metadata: Metadata = { title: "Services" };
 
@@ -10,10 +10,9 @@ export default function Page() {
   return (
     <>
       <PageHeader eyebrow="Services" title="Technology that moves your" accent="business forward." text="Six integrated capabilities, delivered by one team." />
-      <ServicesStack heading={false} />
-      <Marquee rev />
+      <ServicesBento heading={false} />
       <ProcessPinned />
+      <Cta />
     </>
   );
 }
-
