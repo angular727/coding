@@ -7,15 +7,12 @@ import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LABELS: Record<string, string> = { "/": "Home", "/services": "Services", "/products": "Products", "/projects": "Projects", "/about": "About", "/contact": "Contact" };
-
 export default function Experience({ children }: { children: React.ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
-  const curtain = useRef<HTMLDivElement>(null);
-  const curtainLabel = useRef<HTMLParagraphElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const transitioning = useRef(false);
+  const vtResolve = useRef<(() => void) | null>(null);
   const [count, setCount] = useState(0);
   const pathname = usePathname();
   const router = useRouter();
@@ -68,14 +65,25 @@ export default function Experience({ children }: { children: React.ReactNode }) 
       e.preventDefault(); e.stopPropagation();
       if (transitioning.current) return;
       transitioning.current = true;
-      const base = "/" + url.pathname.split("/")[1];
-      if (curtainLabel.current) curtainLabel.current.textContent = LABELS[url.pathname] || LABELS[base] || "CodingHub";
       lenis.stop();
-      gsap.timeline()
-        .set(curtain.current, { display: "flex", yPercent: 100 })
-        .to(curtain.current, { yPercent: 0, duration: 0.7, ease: "expo.inOut" })
-        .fromTo(curtainLabel.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, "-=0.35")
-        .add(() => router.push(url.pathname + url.search + url.hash));
+      const href = url.pathname + url.search + url.hash;
+      // Native page transition: the browser keeps a snapshot of the old page on screen and
+      // slides the new one over it (both visible, so the screen is never empty).
+      const d = document as Document & { startViewTransition?: (cb: () => Promise<void>) => { finished: Promise<void>; ready: Promise<void>; updateCallbackDone: Promise<void> } };
+      const done = () => { transitioning.current = false; lenis.start(); ScrollTrigger.refresh(); };
+      if (d.startViewTransition) {
+        const vt = d.startViewTransition(() => new Promise<void>((resolve) => {
+          vtResolve.current = resolve;
+          router.push(href);
+          setTimeout(resolve, 2500); // never wait longer than the browser allows; a slow page just swaps without the slide
+        }));
+        // a cancelled transition (slow page, tab switch) must never surface as an error
+        vt.ready.catch(() => {});
+        vt.updateCallbackDone.catch(() => {});
+        vt.finished.catch(() => {}).finally(done);
+      } else {
+        router.push(href);
+      }
     };
     document.addEventListener("click", click, true);
 
@@ -125,13 +133,13 @@ export default function Experience({ children }: { children: React.ReactNode }) 
     }, root);
 
     if (transitioning.current) {
-      gsap.timeline({ delay: 0.2 })
-        .to(curtain.current, { yPercent: -100, duration: 0.85, ease: "expo.inOut" })
-        .add(() => { lenisRef.current?.start(); playHero(); }, "-=0.5")
-        .set(curtain.current, { display: "none" })
-        .add(() => { transitioning.current = false; });
+      playHero(); // headline animates in while the pages cross over
+      // (timers keep running while the browser pauses painting for the transition; rAF would not)
+      setTimeout(() => {
+        vtResolve.current?.(); vtResolve.current = null; // tell the browser the new page is ready
+        if (!("startViewTransition" in document)) { transitioning.current = false; lenisRef.current?.start(); }
+      }, 80);
     }
-
     const t = setTimeout(() => ScrollTrigger.refresh(), 300);
     return () => { clearTimeout(t); ctx.revert(); };
   }, [pathname]);
@@ -139,10 +147,6 @@ export default function Experience({ children }: { children: React.ReactNode }) 
   return (
     <div ref={root}>
       <div className="progress fixed left-0 top-0 z-[95] h-[3px] w-full origin-left scale-x-0 bg-gradient-to-r from-blue via-violet to-cyan" />
-
-      <div ref={curtain} className="fixed inset-0 z-[96] hidden items-center justify-center bg-gradient-to-br from-blue via-violet to-[#1b1a6b] text-white">
-        <p ref={curtainLabel} className="font-display text-[7vw] font-semibold tracking-[-0.045em]" />
-      </div>
 
       <div ref={loader} className="fixed inset-0 z-[100] grid place-items-center bg-deep">
         <div className="loader-content flex w-72 flex-col items-center">

@@ -78,3 +78,23 @@ body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .line-hover { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s cubic-bezier(.7,0,.2,1); }
 .line-hover:hover { background-size: 100% 1px; }
+
+/* slim dark scrollbar that blends with the page (no light strip at the right edge, also during page changes) */
+html { color-scheme: dark; scrollbar-width: thin; scrollbar-color: rgba(143, 176, 255, .45) var(--color-paper); scrollbar-gutter: stable; }
+html::-webkit-scrollbar { width: 10px; background: var(--color-paper); }
+html::-webkit-scrollbar-track { background: var(--color-paper); }
+html::-webkit-scrollbar-thumb { background: rgba(143, 176, 255, .35); border-radius: 8px; border: 2px solid var(--color-paper); }
+html::-webkit-scrollbar-thumb:hover { background: rgba(143, 176, 255, .6); }
+
+/* page-to-page transition: the OLD page zooms out from the centre of the screen and fades away,
+   revealing the NEW page (already fully visible underneath, settling in), so the screen is never empty */
+.vt-nav { view-transition-name: site-nav; }
+::view-transition { background: var(--color-paper); }
+::view-transition-group(root) { animation-duration: .8s; }
+::view-transition-image-pair(root) { isolation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; animation-duration: .8s; animation-timing-function: cubic-bezier(.65, 0, .35, 1); animation-fill-mode: both; transform-origin: 50% 50%; }
+::view-transition-old(root) { animation-name: vt-zoom-out; z-index: 2; }
+::view-transition-new(root) { animation-name: vt-zoom-in; z-index: 1; }
+@keyframes vt-zoom-out { from { transform: scale(1); opacity: 1; } 35% { opacity: 1; } to { transform: scale(.78); opacity: 0; } }
+@keyframes vt-zoom-in  { from { transform: scale(1.12); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .01s; } }

@@ -36,7 +36,7 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-4 z-[90] flex flex-col items-center px-4">
+    <header className="vt-nav pointer-events-none fixed inset-x-0 top-4 z-[90] flex flex-col items-center px-4">
       <div className="glass pointer-events-auto flex w-full max-w-[44rem] items-center justify-between gap-1 rounded-full p-1.5 pl-4 md:w-auto md:max-w-none">
         <Link href="/" data-magnetic className="mr-3 flex items-center gap-2 font-display text-[16px] font-semibold tracking-[-0.04em]">
           <span className="btn-primary grid h-7 w-7 place-items-center rounded-lg text-white">

@@ -19,8 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="grain">
         <Experience>
           <Nav />
-          <main>{children}</main>
-          <Footer />
+          <div id="page">
+            <main>{children}</main>
+            <Footer />
+          </div>
         </Experience>
       </body>
     </html>
