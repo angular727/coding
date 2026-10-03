@@ -16,8 +16,8 @@ export default function Process() {
       </div>
       <div className="grid gap-4 md:grid-cols-4">
         {steps.map((s, i) => (
-          <div key={s.t} data-reveal data-delay={i * 0.08} className="rounded-[24px] border border-line bg-white p-7 shadow-soft">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-blue to-blue2 font-display text-lg font-semibold text-white">{i + 1}</span>
+          <div key={s.t} data-reveal data-delay={i * 0.08} className="card rounded-[24px] p-7">
+            <span className="btn-primary grid h-11 w-11 place-items-center rounded-2xl font-display text-lg font-semibold text-white">{i + 1}</span>
             <h3 className="t-h3 mt-6">{s.t}</h3>
             <p className="mt-2 text-sm leading-relaxed text-mute">{s.d}</p>
           </div>

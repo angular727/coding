@@ -39,7 +39,7 @@ export default function Nav() {
     <header className="pointer-events-none fixed inset-x-0 top-4 z-[90] flex flex-col items-center px-4">
       <div className="glass pointer-events-auto flex w-full max-w-[44rem] items-center justify-between gap-1 rounded-full p-1.5 pl-4 md:w-auto md:max-w-none">
         <Link href="/" data-magnetic className="mr-3 flex items-center gap-2 font-display text-[16px] font-semibold tracking-[-0.04em]">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-blue to-blue2 text-white">
+          <span className="btn-primary grid h-7 w-7 place-items-center rounded-lg text-white">
             <svg width="14" height="14" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M10 8 4 14l6 6M18 8l6 6-6 6" /></svg>
           </span>
           CodingHub
@@ -47,16 +47,16 @@ export default function Nav() {
 
         <nav className="hidden items-center md:flex">
           {links.map(({ l, h }) => (
-            <Link key={h} href={h} className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${on(h) ? "bg-white text-blue shadow-sm" : "text-ink/65 hover:text-ink"}`}>{l}</Link>
+            <Link key={h} href={h} className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${on(h) ? "bg-white/10 text-white" : "text-ink/60 hover:text-white"}`}>{l}</Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-1.5">
-          <Link href="/contact" data-magnetic className="hidden rounded-full bg-gradient-to-r from-blue to-blue2 px-4 py-2 text-[13px] font-medium text-white shadow-lift transition hover:brightness-110 sm:inline-block">Let&apos;s talk</Link>
-          <button onClick={() => setOpen((o) => !o)} aria-label="Menu" className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white md:hidden">
+          <Link href="/contact" data-magnetic className="btn-primary hidden rounded-full px-4 py-2 text-[13px] font-medium text-white transition sm:inline-block">Let&apos;s talk</Link>
+          <button onClick={() => setOpen((o) => !o)} aria-label="Menu" className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white/5 md:hidden">
             <span className="relative block h-2 w-4">
-              <span className={`absolute left-0 h-px w-4 bg-ink transition-all duration-300 ${open ? "top-[3.5px] rotate-45" : "top-0"}`} />
-              <span className={`absolute left-0 h-px w-4 bg-ink transition-all duration-300 ${open ? "top-[3.5px] -rotate-45" : "top-[7px]"}`} />
+              <span className={`absolute left-0 h-px w-4 bg-white transition-all duration-300 ${open ? "top-[3.5px] rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 h-px w-4 bg-white transition-all duration-300 ${open ? "top-[3.5px] -rotate-45" : "top-[7px]"}`} />
             </span>
           </button>
         </div>
@@ -66,7 +66,7 @@ export default function Nav() {
         <ul>
           {[...links, { l: "Contact", h: "/contact" }].map(({ l, h }, i) => (
             <li key={h} className="m-item">
-              <Link href={h} className={`flex items-baseline gap-4 border-b border-line py-3 text-xl font-semibold tracking-[-0.03em] ${on(h) ? "text-blue" : ""}`}>
+              <Link href={h} className={`flex items-baseline gap-4 border-b border-line py-3 text-xl font-semibold tracking-[-0.03em] ${on(h) ? "grad-text" : ""}`}>
                 <span className="w-5 text-[11px] font-normal text-mute">0{i + 1}</span>{l}
               </Link>
             </li>

@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Statement from "@/components/Statement";
-import ServicesBento from "@/components/ServicesBento";
+import ServicesSpotlight from "@/components/ServicesSpotlight";
 import ProductsHorizontal from "@/components/ProductsHorizontal";
 import ProcessPinned from "@/components/ProcessPinned";
 import Numbers from "@/components/Numbers";
@@ -13,7 +13,7 @@ export default function Page() {
       <Hero />
       <Marquee />
       <Statement />
-      <ServicesBento />
+      <ServicesSpotlight />
       <ProductsHorizontal />
       <ProcessPinned />
       <Numbers />

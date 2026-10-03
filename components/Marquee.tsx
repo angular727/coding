@@ -8,8 +8,8 @@ export default function Marquee({ label = "Software for every kind of business" 
       <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
         <div className="marquee">
           {row.map((t, i) => (
-            <span key={i} className="mx-3 flex items-center gap-3 whitespace-nowrap rounded-full border border-line bg-white px-6 py-3 text-sm font-medium shadow-soft">
-              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-blue to-blue2" />{t}
+            <span key={i} className="glass mx-3 flex items-center gap-3 whitespace-nowrap rounded-full px-6 py-3 text-sm font-medium">
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-blue to-cyan" />{t}
             </span>
           ))}
         </div>

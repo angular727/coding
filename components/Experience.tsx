@@ -27,11 +27,11 @@ export default function Experience({ children }: { children: React.ReactNode }) 
     });
     gsap.utils.toArray<HTMLElement>(".hero-fade").forEach((el, i) => {
       gsap.set(el, { visibility: "visible" });
-      gsap.from(el, { y: 34, opacity: 0, filter: "blur(8px)", duration: 1.1, delay: 0.25 + i * 0.08, ease: "power3.out" });
+      gsap.from(el, { y: 30, opacity: 0, filter: "blur(8px)", duration: 1, delay: 0.2 + i * 0.08, ease: "power3.out" });
     });
   };
 
-  // smooth scroll, magnetic buttons, link interception (once)
+  // smooth scroll, spotlight, magnetic buttons, link interception (once)
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.09 });
     lenisRef.current = lenis;
@@ -41,7 +41,13 @@ export default function Experience({ children }: { children: React.ReactNode }) 
     gsap.ticker.lagSmoothing(0);
     lenis.stop();
 
-    const mag = (e: MouseEvent) => {
+    const move = (e: MouseEvent) => {
+      const card = (e.target as HTMLElement).closest<HTMLElement>(".card");
+      if (card) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--x", `${e.clientX - r.left}px`);
+        card.style.setProperty("--y", `${e.clientY - r.top}px`);
+      }
       document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
         const r = el.getBoundingClientRect();
         const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
@@ -50,7 +56,7 @@ export default function Experience({ children }: { children: React.ReactNode }) 
         else gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1,.4)" });
       });
     };
-    window.addEventListener("mousemove", mag);
+    window.addEventListener("mousemove", move);
 
     const click = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -73,7 +79,7 @@ export default function Experience({ children }: { children: React.ReactNode }) 
     };
     document.addEventListener("click", click, true);
 
-    return () => { window.removeEventListener("mousemove", mag); document.removeEventListener("click", click, true); gsap.ticker.remove(tick); lenis.destroy(); };
+    return () => { window.removeEventListener("mousemove", move); document.removeEventListener("click", click, true); gsap.ticker.remove(tick); lenis.destroy(); };
   }, [router]);
 
   // preloader (first load only)
@@ -132,21 +138,21 @@ export default function Experience({ children }: { children: React.ReactNode }) 
 
   return (
     <div ref={root}>
-      <div className="progress fixed left-0 top-0 z-[95] h-[3px] w-full origin-left scale-x-0 bg-gradient-to-r from-blue to-blue2" />
+      <div className="progress fixed left-0 top-0 z-[95] h-[3px] w-full origin-left scale-x-0 bg-gradient-to-r from-blue via-violet to-cyan" />
 
-      <div ref={curtain} className="fixed inset-0 z-[96] hidden items-center justify-center bg-gradient-to-br from-blue to-navy text-white">
+      <div ref={curtain} className="fixed inset-0 z-[96] hidden items-center justify-center bg-gradient-to-br from-blue via-violet to-[#1b1a6b] text-white">
         <p ref={curtainLabel} className="font-display text-[7vw] font-semibold tracking-[-0.045em]" />
       </div>
 
-      <div ref={loader} className="fixed inset-0 z-[100] grid place-items-center bg-paper">
+      <div ref={loader} className="fixed inset-0 z-[100] grid place-items-center bg-deep">
         <div className="loader-content flex w-72 flex-col items-center">
           <div className="mb-8 flex items-center gap-3">
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue to-blue2 text-white shadow-lift">
+            <span className="btn-primary grid h-12 w-12 place-items-center rounded-2xl text-white">
               <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M10 8 4 14l6 6M18 8l6 6-6 6" /></svg>
             </span>
             <span className="font-display text-3xl font-semibold tracking-[-0.045em]">CodingHub</span>
           </div>
-          <div className="h-1 w-full overflow-hidden rounded bg-line"><div className="loader-bar h-full origin-left scale-x-0 rounded bg-gradient-to-r from-blue to-blue2" /></div>
+          <div className="h-1 w-full overflow-hidden rounded bg-white/10"><div className="loader-bar h-full origin-left scale-x-0 rounded bg-gradient-to-r from-blue via-violet to-cyan" /></div>
           <p className="mt-4 text-xs tabular-nums text-mute">{count}%</p>
         </div>
       </div>

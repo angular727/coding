@@ -25,21 +25,21 @@ export default function Page() {
         {projects.map((p, i) => {
           const prod = getProduct(p.slug)!;
           return (
-            <article key={p.slug} data-reveal className="group grid overflow-hidden rounded-[28px] border border-line bg-white shadow-soft transition duration-500 hover:shadow-lift md:grid-cols-12">
+            <article key={p.slug} data-reveal className="card group grid overflow-hidden rounded-[28px] md:grid-cols-12">
               <Link href={`/products/${p.slug}`} className="overflow-hidden md:col-span-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={photo(p.slug)} alt={prod.t} loading="lazy" className="h-full min-h-[220px] w-full object-cover transition duration-[1100ms] group-hover:scale-105" />
               </Link>
-              <div className="flex flex-col justify-center p-7 md:col-span-5 md:p-9">
-                <p className="t-eyebrow text-blue">{String(i + 1).padStart(2, "0")} · {p.i}</p>
+              <div className="relative flex flex-col justify-center p-7 md:col-span-5 md:p-9">
+                <p className="t-eyebrow text-cyan">{String(i + 1).padStart(2, "0")} · {p.i}</p>
                 <h2 className="t-h2 mt-2">{prod.t}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-mute">{p.d}</p>
-                {p.stack.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{p.stack.map((s) => <span key={s} className="rounded-full bg-sky px-3 py-1 text-xs font-medium text-blue">{s}</span>)}</div>}
+                {p.stack.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{p.stack.map((s) => <span key={s} className="rounded-full border border-line bg-white/[.05] px-3 py-1 text-xs">{s}</span>)}</div>}
               </div>
-              <div className="flex flex-wrap items-center gap-3 p-7 md:col-span-3 md:flex-col md:items-stretch md:justify-center md:border-l md:border-line">
-                <span className="rounded-full bg-soft px-4 py-1.5 text-center text-xs font-semibold text-ink/70">{p.s}</span>
-                {p.href && <a href={p.href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-gradient-to-r from-blue to-blue2 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-lift transition hover:brightness-110">Open live demo ↗</a>}
-                <Link href={`/products/${p.slug}`} className="rounded-full border border-line px-5 py-2.5 text-center text-sm font-medium transition hover:border-blue hover:text-blue">View details</Link>
+              <div className="relative flex flex-wrap items-center gap-3 p-7 md:col-span-3 md:flex-col md:items-stretch md:justify-center md:border-l md:border-line">
+                <span className="rounded-full bg-white/10 px-4 py-1.5 text-center text-xs font-semibold">{p.s}</span>
+                {p.href && <a href={p.href} target="_blank" rel="noopener noreferrer" className="btn-primary rounded-full px-5 py-2.5 text-center text-sm font-semibold text-white">Open live demo ↗</a>}
+                <Link href={`/products/${p.slug}`} className="glass rounded-full px-5 py-2.5 text-center text-sm font-medium transition hover:bg-white/10">View details</Link>
               </div>
             </article>
           );

@@ -45,15 +45,14 @@ export default function ProcessPinned() {
   return (
     <div>
       <div className="md:hidden"><Process /></div>
-      <section ref={section} className="relative hidden h-screen overflow-hidden bg-paper md:block">
-        <div className="absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-blue/10 blur-[120px]" />
+      <section ref={section} className="relative hidden h-screen overflow-hidden md:block">
+        <div className="absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-blue/15 blur-[120px]" />
         <div className="relative mx-auto grid h-full max-w-[1400px] grid-cols-12 items-center gap-10 px-10 pt-16">
-          {/* copy + step rail */}
           <div className="col-span-5">
-            <p className="t-eyebrow mb-8 flex items-center gap-3 text-mute"><span className="h-2 w-2 rounded-full bg-blue" />How we work</p>
+            <p className="t-eyebrow mb-8 flex items-center gap-3 text-mute"><span className="h-2 w-2 rounded-full bg-cyan" />How we work</p>
             <div className="flex gap-8">
-              <div className="relative w-px shrink-0 bg-line">
-                <div className="pp-bar absolute inset-x-0 top-0 h-full origin-top scale-y-0 bg-gradient-to-b from-blue to-blue2" />
+              <div className="relative w-px shrink-0 bg-white/15">
+                <div className="pp-bar absolute inset-x-0 top-0 h-full origin-top scale-y-0 bg-gradient-to-b from-blue via-violet to-cyan" />
               </div>
               <ul className="space-y-3">
                 {steps.map((s, i) => (
@@ -71,19 +70,18 @@ export default function ProcessPinned() {
             </div>
           </div>
 
-          {/* image stage */}
           <div className="col-span-7">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border border-line bg-soft shadow-lift">
+            <div className="card relative aspect-[4/3] overflow-hidden rounded-[32px]">
               {steps.map((s, i) => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img key={s.t} src={s.img} alt={s.t} loading="lazy" className="pp-img absolute inset-0 h-full w-full object-cover" style={{ opacity: i === 0 ? 1 : 0 }} />
               ))}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <div className="relative h-11 w-64">
                   {steps.map((s, i) => (
                     <div key={s.t} className="pp-chip glass absolute left-0 top-0 inline-flex items-center gap-2.5 rounded-full px-4 py-2.5 text-xs font-semibold" style={{ opacity: i === 0 ? 1 : 0 }}>
-                      <span className="h-2 w-2 rounded-full bg-blue" />{s.chip}
+                      <span className="h-2 w-2 rounded-full bg-cyan" />{s.chip}
                     </div>
                   ))}
                 </div>

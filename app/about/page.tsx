@@ -23,8 +23,8 @@ export default function Page() {
         </p>
         <div className="mt-16 grid gap-5 md:grid-cols-3">
           {values.map((v, i) => (
-            <div key={v.t} data-reveal data-delay={i * 0.08} className="rounded-[28px] border border-line bg-white p-8 shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-lift">
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-blue to-blue2 font-display font-semibold text-white">{i + 1}</span>
+            <div key={v.t} data-reveal data-delay={i * 0.08} className="card rounded-[28px] p-8 transition duration-500 hover:-translate-y-1">
+              <span className="btn-primary grid h-11 w-11 place-items-center rounded-2xl font-display font-semibold text-white">{i + 1}</span>
               <h2 className="t-h2 mt-6">{v.t}</h2>
               <p className="mt-3 text-sm leading-relaxed text-mute">{v.d}</p>
             </div>

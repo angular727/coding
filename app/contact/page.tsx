@@ -20,12 +20,12 @@ export default function Page() {
           <ul className="space-y-4 lg:col-span-5">
             {info.map(([l, v, h, d]) => (
               <li key={l} data-reveal>
-                <a href={h} className="flex gap-5 rounded-[24px] border border-line bg-white p-6 shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-lift">
-                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-sky text-blue">
+                <a href={h} className="card flex gap-5 rounded-[24px] p-6 transition duration-500 hover:-translate-y-1">
+                  <span className="btn-primary grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-white">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>
                   </span>
-                  <span>
-                    <span className="t-eyebrow block text-blue">{l}</span>
+                  <span className="relative">
+                    <span className="t-eyebrow block text-cyan">{l}</span>
                     <span className="mt-1 block text-lg font-semibold leading-snug tracking-[-0.02em]">{v}</span>
                   </span>
                 </a>

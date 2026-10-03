@@ -6,15 +6,15 @@ export default function PageHeader({ eyebrow, title, accent, text, crumbs, image
 }) {
   return (
     <section className="relative overflow-hidden px-6 pb-10 pt-36 md:px-10 md:pt-44">
-      <div className="absolute inset-0 -z-10 [background-image:linear-gradient(rgba(36,87,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(36,87,255,.05)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_80%_90%_at_30%_0%,#000_20%,transparent_75%)]" />
-      <div className="absolute -left-24 -top-24 -z-10 h-[420px] w-[420px] rounded-full bg-blue/15 blur-[110px]" />
-      <div className="absolute right-0 top-10 -z-10 h-[360px] w-[360px] rounded-full bg-blue2/20 blur-[110px]" />
+      <div className="stars absolute inset-0 -z-10" />
+      <div className="absolute -left-24 -top-24 -z-10 h-[460px] w-[460px] rounded-full bg-blue/25 blur-[120px]" />
+      <div className="absolute right-0 top-10 -z-10 h-[400px] w-[400px] rounded-full bg-violet/20 blur-[120px]" />
       <div className="mx-auto max-w-[1400px]">
         <p className="hero-fade t-eyebrow mb-7 flex items-center gap-3 text-mute">
-          <span className="h-2 w-2 rounded-full bg-blue" />
-          <Link href="/" className="line-hover transition hover:text-ink">Home</Link>
-          {crumbs?.map(([l, h]) => (<span key={h} className="flex gap-3">/ <Link href={h} className="line-hover transition hover:text-ink">{l}</Link></span>))}
-          <span>/</span><span className="text-ink">{eyebrow}</span>
+          <span className="h-2 w-2 rounded-full bg-cyan" />
+          <Link href="/" className="line-hover transition hover:text-white">Home</Link>
+          {crumbs?.map(([l, h]) => (<span key={h} className="flex gap-3">/ <Link href={h} className="line-hover transition hover:text-white">{l}</Link></span>))}
+          <span>/</span><span className="text-white">{eyebrow}</span>
         </p>
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <h1 className="hero-split t-h1 md:col-span-8">
@@ -23,10 +23,10 @@ export default function PageHeader({ eyebrow, title, accent, text, crumbs, image
           {text && <p className="hero-fade text-[15px] leading-relaxed text-mute md:col-span-3 md:col-start-10">{text}</p>}
         </div>
         {image && (
-          <div data-clip className="relative mt-12 h-[44vh] overflow-hidden rounded-[28px] shadow-lift md:h-[66vh]">
+          <div data-clip className="card relative mt-12 h-[44vh] overflow-hidden rounded-[28px] md:h-[66vh]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img data-parallax src={image} alt="" className="absolute inset-x-0 -top-[9%] h-[118%] w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/35 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-deep/60 to-transparent" />
           </div>
         )}
       </div>
